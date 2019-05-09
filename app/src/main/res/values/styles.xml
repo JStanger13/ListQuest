@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="AppTheme.Base"/>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+<!--    <style name="AppDialogTheme" parent="@android:style/Theme.Dialog">-->
+<!--        &lt;!&ndash; Define color properties as desired &ndash;&gt;-->
+<!--        <item name="android:windowAnimationStyle">DialogSlideAnim</item>-->
+
+<!--        <item name="colorPrimary">@color/dark_blue</item>-->
+<!--        <item name="colorPrimaryDark">#000</item>-->
+<!--        <item name="android:textColorHighlight">@color/light_blue</item>-->
+<!--        <item name="colorAccent">@color/dark_blue</item>-->
+<!--        <item name="colorControlNormal">@color/dark_blue</item>-->
+<!--        &lt;!&ndash; Define window properties as desired &ndash;&gt;-->
+<!--        <item name="android:windowNoTitle">false</item>-->
+<!--        <item name="android:windowFullscreen">false</item>-->
+<!--        <item name="android:windowBackground">@color/medium_green</item>-->
+<!--        <item name="android:windowIsFloating">true</item>-->
+<!--        <item name="android:windowCloseOnTouchOutside">true</item>-->
+<!--    </style>-->
+
+    <!-- Define your custom alert theme here extending from base -->
+    <style name="AppAlertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorAccent">@color/dark_blue</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorControlNormal">@color/dark_blue</item>
+        <item name="android:textColorHighlight">@color/light_blue</item>
+    </style>
+
+    <style name="DialogSlideAnim" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+</resources>

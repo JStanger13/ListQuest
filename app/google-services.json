@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "630121288351",
+    "firebase_url": "https://listquest-54b90.firebaseio.com",
+    "project_id": "listquest-54b90",
+    "storage_bucket": "listquest-54b90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630121288351:android:f3ff9f7c260a1c0e",
+        "android_client_info": {
+          "package_name": "com.example.listquest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630121288351-9ed95mklgrqmoeugba5sonlv01i25fum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.listquest",
+            "certificate_hash": "263fb97832096fe391331ddf0eebc5b8cab60189"
+          }
+        },
+        {
+          "client_id": "630121288351-fj6qudkoc7mcmh9dk0a3rj9ht2uuv2u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByYdKgj7TfDXaV7WV7EnhX9rZhOTxUnGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630121288351-fj6qudkoc7mcmh9dk0a3rj9ht2uuv2u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

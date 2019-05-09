@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_id"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".SideQuestFragment">
+
+        <data>
+
+        </data>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                <include
+                        android:id="@+id/current_quest_component"
+                        layout = "@layout/current_main_quest_component"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            app:layout_constraintTop_toBottomOf="@id/current_quest_component"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:id="@+id/side_quest_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" tools:layout_editor_absoluteX="0dp"
+                            app:layout_constraintVertical_bias="0.0"/>
+                    <LinearLayout
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="411dp"
+                        android:layout_height="61dp"
+                        tools:layout_editor_absoluteX="0dp"
+                        android:layout_margin="50dp">
+
+                        <EditText
+                                android:id="@+id/side_edit"
+                                android:background="@drawable/et_style"
+                                app:boxBackgroundMode="none"
+                                android:backgroundTint="#ffffff"
+                                android:imeOptions="actionDone"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:inputType="text"
+                                android:hint="Create Quest"
+                                android:autofillHints="New Hint"
+                                tools:targetApi="o"
+                                android:layout_margin="10dp"
+                                android:textColor="#000000"
+                                android:padding="10dp"/>
+
+                </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
