@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#FFFFFF"
+        app:behavior_peekHeight="80dp"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        app:behavior_hideable="true"
+        android:layout_height="340dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+<!--        >-->
+
+<!--    <ImageView-->
+<!--            android:id="@+id/scroll_img"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:src="@drawable/scroll"-->
+<!--            app:layout_constraintHorizontal_bias="0.498"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--            android:id="@+id/notes_txt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Notes"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textSize="20sp"-->
+<!--            android:fontFamily="@font/open_sans_bold"-->
+<!--            android:textColor="#000000"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/scroll_img"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"/>-->
+
+<!--    <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:fontFamily="@font/open_sans_light"-->
+<!--            android:textColor="#000000"-->
+<!--            app:layout_constraintHorizontal_bias="0.473"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/notes_txt"-->
+<!--            tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt." />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
