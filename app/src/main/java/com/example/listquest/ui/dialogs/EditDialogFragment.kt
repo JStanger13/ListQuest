@@ -1,37 +1,33 @@
 package com.example.listquest.ui.dialogs
 
-import androidx.fragment.app.DialogFragment
-import android.view.WindowManager
-import android.widget.EditText
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import kotlinx.android.synthetic.main.custom_edit_dialog.*
-import com.example.listquest.MainActivity
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.EditText
+import androidx.fragment.app.DialogFragment
 import com.example.listquest.R
-import com.example.listquest.models.MainQuestModel
-import com.example.listquest.ui.mainquest.MainQuestFragment
-import kotlinx.android.synthetic.main.fragment_main_quest.*
+import com.example.listquest.data.models.MainQuestModel
+import kotlinx.android.synthetic.main.custom_edit_dialog.*
 
+class EditDialogFragment(private var callback: EditQuestListener): DialogFragment(){
 
-class EditDialogFragment: DialogFragment(){
     private var mEditText: EditText? = null
-    lateinit var mainQuest: MainQuestModel
-    //var position = 0
 
-    override fun getTheme(): Int {
-        return com.example.listquest.R.style.AppAlertTheme
+    interface EditQuestListener {
+        fun editQuestFromDialog(mainQuestModel: MainQuestModel)
     }
 
-    fun newInstance(position: Int): EditDialogFragment {
-        val frag = EditDialogFragment()
+    fun newInstance(mainQuestModel: MainQuestModel): EditDialogFragment {
+        val frag = EditDialogFragment(callback)
         val args = Bundle()
-        args.putInt("title", position)
-        //this.position = position
+        args.putSerializable("mainQuest", mainQuestModel)
         frag.arguments = args
-    return frag
+
+        return frag
     }
+
     override fun onActivityCreated(arg0: Bundle?) {
         super.onActivityCreated(arg0)
         dialog.window!!
@@ -42,26 +38,26 @@ class EditDialogFragment: DialogFragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(com.example.listquest.R.layout.custom_edit_dialog, container)
+        return inflater.inflate(R.layout.custom_edit_dialog, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Get field from view
-        mEditText = view.findViewById(com.example.listquest.R.id.body)
-        // Fetch arguments from bundle and set title
-        var position = arguments!!.getInt("title", 0)
-        dialog.setTitle(MainActivity.mainFrag.getQuestList()[position].mainQuestTitle)
-        mEditText!!.setText(MainActivity.mainFrag.getQuestList()[position].mainQuestTitle)
+        val mainQuest = arguments!!.getSerializable("mainQuest") as MainQuestModel
+        mEditText = view.findViewById(R.id.body)
+        mEditText!!.setText(mainQuest.mainQuestTitle)
+
+
         // Show soft keyboard automatically and request focus to field
         mEditText!!.requestFocus()
         dialog.window!!.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
         )
+
         yesBtn.setOnClickListener{
-            MainActivity.mainFrag.getQuestList()[position].mainQuestTitle = mEditText!!.text.toString()
-            MainActivity.mainFrag.mainAdapter.notifyDataSetChanged()
-            //MainActivity.mainFrag.recycler_view.adapter = MainActivity.mainFrag.mainAdapter
+            mainQuest.mainQuestTitle = mEditText!!.text.toString()
+            callback.editQuestFromDialog(mainQuest)
             dialog.dismiss()
         }
 

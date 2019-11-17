@@ -1,4 +1,4 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 import com.example.listquest.R
 import kotlin.random.Random

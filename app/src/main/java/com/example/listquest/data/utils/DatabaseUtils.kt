@@ -1,17 +1,29 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 import android.content.ContentValues
 import android.util.Log
 import com.example.listquest.data.models.MainQuestModel
 import com.example.listquest.data.models.NotesModel
 import com.example.listquest.data.models.SideQuestModel
+import com.example.listquest.data.models.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DatabaseUtils {
     companion object {
         val mainQuestRef = FirebaseFirestore.getInstance().collection("MainQuests")
 
+        fun handleLvlUp(num: Int, dem: Int): Float{
+            if(num == 0){
+                return 0f
+            }
+
+            return num.toFloat()/dem.toFloat()
+        }
+
+
         var userId = ""
+
+        lateinit var userModel: UserModel
 
         var firebaseRepository = FirestoreRepository()
 

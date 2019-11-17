@@ -1,4 +1,4 @@
-package com.example.listquest.models
+package com.example.listquest.data.models
 
 import com.google.firebase.Timestamp
 import java.io.Serializable

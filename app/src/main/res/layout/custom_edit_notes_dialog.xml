@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-</LinearLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type= "com.example.listquest.ui.dialogs.EditNotesDialogViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_dialog">
+
+        <TextView
+                android:id="@+id/delete_btn"
+                android:text="Delete"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_delete"
+                android:drawablePadding = "25dp"
+                android:textSize="20dp"
+                android:padding="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/edit_btn"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="@{() -> viewModel.deleteNote()}"/>
+
+
+        <TextView
+                android:id="@+id/edit_btn"
+                android:text="Edit"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/edit"
+                android:drawablePadding = "25dp"
+                android:textSize="20dp"
+                android:padding="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/delete_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/divider"
+                android:fontFamily="@font/open_sans_light"/>
+
+        <ImageView
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider"
+                app:layout_constraintBottom_toTopOf="@id/cancel_btn"/>
+
+        <TextView
+                android:id="@+id/cancel_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Cancel"
+                android:textColor="#000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/cancel"
+                android:drawablePadding = "25dp"
+                android:textSize="20dp"
+                android:padding="20dp"
+                android:fontFamily="@font/open_sans_light"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

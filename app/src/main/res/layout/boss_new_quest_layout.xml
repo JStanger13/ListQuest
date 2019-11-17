@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<data>
+    <import type="android.view.View" />
+
+    <variable
+            name="viewModel"
+            type= "com.example.listquest.ui.sidequest.item_viewmodel.SideQuestViewModel"/>
+
+</data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.bossIsShown ? View.GONE : View.VISIBLE }"
+            >
+
+        <ImageView
+                android:id="@+id/before_boss_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@{viewModel.bossImg}"
+                tools:src="@drawable/devil"/>
+
+        <TextView
+                android:textColor="#000"
+                android:id="@+id/before_txt"
+                app:layout_constraintTop_toBottomOf="@id/before_boss_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="add and complete tasks to defeat:"
+                android:fontFamily="@font/open_sans_bold"/>
+
+        <TextView
+                android:textColor="#000"
+                app:layout_constraintTop_toBottomOf="@id/before_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="50dp"
+                android:fontFamily="@font/open_sans_bold"
+                tools:text="devil"
+                android:text="@{viewModel.bossName}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,4 +1,4 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 import android.content.Context
 import android.graphics.*

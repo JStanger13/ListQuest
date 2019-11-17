@@ -1,157 +1,127 @@
 package com.example.listquest.ui.mainquest
 
-import android.content.DialogInterface
-import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.listquest.databinding.ItemMainQuestBinding
-import com.example.listquest.models.MainQuestModel
-import com.example.listquest.ui.mainquest.MainQuestViewModel.Companion.mainQuestList
-import com.example.listquest.ui.sidequest.SideQuestFragment
-import com.example.listquest.utils.KeyboardUtils
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.example.listquest.BR
+import com.example.listquest.R
+import com.example.listquest.data.models.MainQuestModel
+import com.example.listquest.data.utils.FirestoreRepository
+import com.example.listquest.data.utils.FirestoreUtil.userModel
+import com.example.listquest.data.utils.SwipeToDeleteCallback
+import com.example.listquest.databinding.FragmentMainQuestBinding
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_main_quest.*
-import kotlinx.android.synthetic.main.fragment_main_quest.view.*
-import kotlinx.android.synthetic.main.item_main_quest.view.*
-import com.example.listquest.ui.dialogs.EditDialogFragment
+import kotlinx.android.synthetic.main.main_profile_bar.*
 
 
 class MainQuestFragment : Fragment() {
-
-    private var tapPosition = DiffUtil.DiffResult.NO_POSITION
-    val viewRect = Rect()
-    var mainAdapter = MainQuestRecyclerView()
-    private var shortAnimationDuration: Int = 0
+    private var adapter: MainQuestAdapter? = null
+    private lateinit var viewModel: MainQuestViewModel
+    lateinit var binding: FragmentMainQuestBinding
+    var firebaseRepository = FirestoreRepository()
 
     companion object {
         fun newInstance() = MainQuestFragment()
-        lateinit var viewModel: MainQuestViewModel
     }
 
-    fun getQuestList(): MutableList<MainQuestModel>{
-        return viewModel.getQuestList()
+    override fun onStart() {
+        super.onStart()
+        Picasso.get().load(userModel.profilePicturePath).into(user_img)
+        adapter!!.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (adapter != null) {
+            adapter!!.stopListening()
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(com.example.listquest.R.layout.fragment_main_quest, container, false)
+    ): View? {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_main_quest,
+            container,
+            false
+        )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-        super.onViewCreated(view, savedInstanceState)
-        shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
-        viewModel = ViewModelProviders.of(this).get(MainQuestViewModel::class.java)
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = mainAdapter
-        }
+        binding.lifecycleOwner = this
+        binding.apply { }
 
-        view.edit_text.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                KeyboardUtils.hideSoftKeyBoard(v.context, v)
-                viewModel.addQuestItem(edit_text.text.toString(), mainAdapter)
-                view.edit_text.setText("")
-                true
-            } else {
-                false
-            }
-        }
+        return binding.root
     }
 
-    inner class MainQuestRecyclerView : RecyclerView.Adapter<MainQuestViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainQuestViewHolder {
-            val binding = DataBindingUtil.inflate<com.example.listquest.databinding.ItemMainQuestBinding>(
-                LayoutInflater.from(parent.context),
-                com.example.listquest.R.layout.item_main_quest, parent, false
-            )
-            return MainQuestViewHolder(binding)
-        }
-
-        private fun removeItem(position: Int) {
-            mainQuestList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, mainQuestList.size)
-        }
-
-        override fun getItemCount() = mainQuestList.size
-
-        override fun onBindViewHolder(holder: MainQuestViewHolder, position: Int) {
-            holder.binding.itemClickListener = BadgeBind()
-
-            fun onViewClick() {
-                tapPosition = position
-                holder.itemView.getGlobalVisibleRect(viewRect)
-                val fragment = SideQuestFragment()
-                val bundle = Bundle()
-                bundle.putSerializable("x", mainQuestList[position])
-                fragment.arguments = bundle
-
-                activity!!.supportFragmentManager
-                    .beginTransaction()
-                    .setReorderingAllowed(true)
-                    .replace(com.example.listquest.R.id.container, fragment)
-                    .addToBackStack(null)
-                    .addSharedElement(holder.itemView, getString(com.example.listquest.R.string.transition_name))
-                    .commit()
-            }
-            holder.bind(mainQuestList[position], ::onViewClick)
-            holder.binding.itemCardview.delete.setOnClickListener{ removeItem(position) }
-            holder.binding.itemCardview.edit.setOnClickListener {
-                val fm = activity?.supportFragmentManager
-                val editNameDialogFragment = EditDialogFragment().newInstance(position)
-                editNameDialogFragment.show(fm, "fragment_edit_name")
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUserInfo()
     }
 
-class MainQuestViewHolder(var binding: ItemMainQuestBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(obj: Any, expandHandler: () -> Unit) {
-        binding.setVariable(BR.model, obj)
-        binding.executePendingBindings()
-        binding.itemCardview.setOnClickListener { expandHandler() }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setUpViewModel()
+        setUpRecyclerView()
+        viewModel.getNumOfAvailableMainQuests()
+    }
+
+    private fun setUpViewModel() {
+        viewModel = ViewModelProviders.of(
+            this,
+            MainQuestViewModelFactory(resources,
+                activity!!.supportFragmentManager)
+        ).get(MainQuestViewModel::class.java)
+        binding.setVariable(BR.viewModel, viewModel)
+    }
+
+    private fun setUpRecyclerView() {
+        recycler_view.layoutManager = LinearLayoutManager(context)
+        adapter = MainQuestAdapter(
+            viewModel.getMainQuestQuery(),
+            viewModel,
+            activity!!.resources
+        )
+        recycler_view.adapter = adapter
+
+        val swipeHandler = object : SwipeToDeleteCallback(context!!) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val adapter = recycler_view.adapter as MainQuestAdapter
+                showUndoSnackBar(
+                    adapter.deleteSideQuest(viewHolder.adapterPosition)
+                )
+            }
         }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recycler_view)
+        (recycler_view.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = true
+    }
+
+    fun showUndoSnackBar(mainQuestModel: MainQuestModel) {
+        val snackbar = Snackbar.make(coordinator_layout, mainQuestModel.mainQuestTitle, Snackbar.LENGTH_LONG)
+        snackbar.setAction("undo") {
+            undoDelete(mainQuestModel)
+        }
+        snackbar.show()
+    }
+
+    private fun undoDelete(mainQuestModel: MainQuestModel) {
+        firebaseRepository.addMainQuestToFirestore(mainQuestModel)
+        viewModel.isListEmpty.value = false
+        userModel.numQuestsAvail++
+        firebaseRepository.updateUser(userModel)
     }
 }
-
-class BadgeBind{
-    fun badgeOnClick(view: View){
-
-        val dialogBuilder = AlertDialog.Builder(view.context)
-
-        // set message of alert dialog
-        dialogBuilder.setMessage("Do you want to close this application ?")
-            // if the dialog is cancelable
-            .setCancelable(false)
-            // positive button text and action
-            .setPositiveButton("Proceed", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.dismiss()
-            })
-            // negative button text and action
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-
-        // create dialog box
-        val alert = dialogBuilder.create()
-        alert.window.setLayout(600, 400)
-
-        // set title for alert dialog box
-        alert.setTitle("AlertDialogExample")
-        // show alert dialog
-        alert.show()
-    }
-}
-
-
-

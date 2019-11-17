@@ -1,12 +1,12 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 import android.content.Context
 import android.graphics.Rect
+import android.text.InputType
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.example.listquest.ui.dialogs.CreateMainDialogFragment
-import kotlinx.android.synthetic.main.custom_create_mainquest.*
+import com.example.listquest.ui.mainquest.create_main_quest.CreateMainDialogFragment
 
 class KeyboardUtils {
     companion object {
@@ -17,7 +17,6 @@ class KeyboardUtils {
                 val lManager =
                     context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 lManager.showSoftInput(editText,  InputMethodManager.SHOW_IMPLICIT)
-
             }
         }
 
@@ -25,8 +24,6 @@ class KeyboardUtils {
             val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-
-
 
 
         fun detectKeyboardOpen(rootView: View, dialog: CreateMainDialogFragment) {

@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.cardview.widget.CardView>
+<data>
+    <variable
+            name="viewModel"
+            type= "com.example.listquest.ui.sidequest.item_viewmodel.SideQuestViewModel"/>
+</data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/type_quest"
+                android:textSize="30dp"
+                android:text="@string/side_quests"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp"
+                app:layout_constraintRight_toLeftOf="@id/sign_out_btn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                />
+
+        <Button
+                android:id="@+id/sign_out_btn"
+                android:text="sign out"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

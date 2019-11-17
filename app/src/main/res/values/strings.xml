@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">ListQuest</string>
     <string name="transition_name">transition_name</string>
+    <string name="main_quests">Main Quests</string>
+    <string name="side_quests">Side Quests</string>
+    <string name= "lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt."</string>
+    <string name="add_side_quests">Add and complete sidequests to defeat </string>
+
+
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
+    <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">668634176900313</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb668634176900313</string>
+    <string name="facebook_hash">ga0RGNYHvNM5d0SLGQfpQWAPGJ8=</string>
+    <string name="user_name">User Name</string>
+    <string name="there_are_no_more_monsters_in_the_kingdom">There are no more monsters in the kingdom</string>
+    <string name="taketh_thy_break">taketh thy break</string>
 </resources>

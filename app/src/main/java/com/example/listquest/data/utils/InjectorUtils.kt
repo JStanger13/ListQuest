@@ -1,4 +1,4 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 object InjectorUtils {
 

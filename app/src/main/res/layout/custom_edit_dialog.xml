@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -13,16 +13,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <EditText
-                android:gravity="center"
+
+        <TextView
+                android:id="@+id/SideStringTitle"
+                android:text="Will ye edit thy quest?"
                 app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/body"
-                android:text="HELLO"
+                app:layout_constraintBottom_toTopOf="@id/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/SideStringTitle"
+                tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+                app:layout_constraintTop_toBottomOf="@id/body"
+                android:id="@+id/idunno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
         <Button
                 android:text="Yes"
-                app:layout_constraintTop_toBottomOf="@id/body"
+                app:layout_constraintTop_toBottomOf="@id/idunno"
                 app:layout_constraintRight_toLeftOf="@id/noBtn"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/yesBtn"
@@ -30,7 +45,7 @@
                 android:layout_height="wrap_content"/>
         <Button
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/body"
+                app:layout_constraintTop_toBottomOf="@id/idunno"
                 android:text="No"
                 app:layout_constraintLeft_toRightOf="@id/yesBtn"
                 android:id="@+id/noBtn"

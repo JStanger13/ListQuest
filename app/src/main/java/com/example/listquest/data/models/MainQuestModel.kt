@@ -1,4 +1,4 @@
-package com.example.listquest.models
+package com.example.listquest.data.models
 
 import com.google.firebase.Timestamp
 import java.io.Serializable
@@ -15,7 +15,9 @@ data class MainQuestModel(
     var bossPercent: Int = 0,
     var timestamp: Timestamp,
     var notes: String,
-    var completed: Boolean = false
+    var completed: Boolean = false,
+    var eventDate: String,
+    var eventTime: String
 
 ): Serializable, Observable() {
     constructor() : this("",
@@ -28,5 +30,7 @@ data class MainQuestModel(
         0,
         Timestamp.now(),
         "",
-        false)
+        false,
+        "",
+        "")
 }

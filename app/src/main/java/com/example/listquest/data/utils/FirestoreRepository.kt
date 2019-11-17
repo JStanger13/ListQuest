@@ -1,11 +1,10 @@
-package com.example.listquest.utils
+package com.example.listquest.data.utils
 
 import com.example.listquest.data.models.MainQuestModel
 import com.example.listquest.data.models.NotesModel
 import com.example.listquest.data.models.SideQuestModel
 import com.example.listquest.data.models.UserModel
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -14,9 +13,6 @@ import com.google.firebase.firestore.Query
 class FirestoreRepository {
     val mainQuestRef = FirebaseFirestore.getInstance()
 
-    companion object{
-        lateinit var userModel: FirebaseUser
-    }
 
     fun addMainQuestToFirestore(mainQuest: MainQuestModel): Task<Void> {
         return mainQuestRef
@@ -32,39 +28,28 @@ class FirestoreRepository {
             .set(mainQuest)
     }
 
-//    fun updateUser(id: String){
-//        mainQuestRef
-//            .collection("Users")
-//            .document(id)
-//            .update("numQuestsCompleted", ++)
-//
-//    }
-
-    fun addUserToFirestore(user: UserModel){
+    fun updateUser(userModel: UserModel){
         mainQuestRef
             .collection("Users")
-            .document(user.id)
-            .set(user)
+            .document(userModel.id)
+            .set(userModel)
     }
 
-    fun getUserFromFirestore(id: String){
-
-        mainQuestRef.collection("Users")
+    fun updateUserDen(id: String, count: Int){
+        mainQuestRef
+            .collection("Users")
             .document(id)
-            .get()
-//        docRef.get()
-//            .addOnSuccessListener { document ->
-//                if (document != null) {
-//                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-//                } else {
-//                    Log.d(TAG, "No such document")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.d(TAG, "get failed with ", exception)
-//            }
+            .update("levelUpDenominator", count)
+    }
+
+    fun updateUserLvl(id: String, count: Int){
+        mainQuestRef
+            .collection("Users")
+            .document(id)
+            .update("lvl", count)
 
     }
+
 
     fun getMainQuestId(): String {
         return mainQuestRef
@@ -153,6 +138,10 @@ class FirestoreRepository {
             .collection("MainQuests")
             .document(mainQuest.id)
             .update("completed", true)
+    }
+
+    fun updateUservl(){
+
     }
 
     fun editSideQuestChk(mainQuest: MainQuestModel, sideQuest: SideQuestModel, isChecked: Boolean){

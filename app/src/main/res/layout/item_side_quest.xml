@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:baselineAligned="false">
+
     <data>
+
         <variable
-                name="side_model"
-                type="com.example.listquest.models.SideQuestModel"/>
+                name="sideQuest"
+                type= "com.example.listquest.data.models.SideQuestModel"/>
+
+        <variable
+                name="sideViewModel"
+                type= "com.example.listquest.ui.sidequest.item_viewmodel.SideQuestItemViewModel"/>
+
     </data>
 
-    <androidx.cardview.widget.CardView
-            android:id="@+id/item_cardview2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true">
+<androidx.cardview.widget.CardView
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:cardBackgroundColor="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_margin="8dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/side_item_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true">
 
-            <CheckBox
-                    android:id="@+id/chk"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/chk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#000"
+                        android:buttonTint="#000"
+                        android:checked="@={sideViewModel.ischecked}"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textColor="#000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="visible"/>
 
-            <TextView
-                    android:id="@+id/txt"
-                    app:layout_constraintLeft_toRightOf="@id/chk"
-                    app:layout_constraintRight_toLeftOf="@id/side_delete"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{side_model.sideQuestTitle}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-            <Button
-                    android:id="@+id/side_delete"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <TextView
+                        android:id="@+id/txt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{sideViewModel.title}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textColor="#000"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/chk"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="20dp"
+                        tools:text="This is title"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </layout>
