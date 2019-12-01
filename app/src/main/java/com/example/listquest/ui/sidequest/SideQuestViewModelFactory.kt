@@ -14,7 +14,7 @@ class SideQuestViewModelFactory(
     private val context: Context): ViewModelProvider.NewInstanceFactory() {
 
     override fun <T: ViewModel> create(SideQuestViewModel:Class<T>): T {
-        return SideQuestViewModel(
+        return com.example.listquest.ui.sidequest.SideQuestViewModel(
             currentMainQuestModel,
             resources,
             fm,
