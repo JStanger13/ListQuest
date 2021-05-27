@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="sideQuest"
+            type= "com.stanger.listquest.data.models.SideQuestModel"/>
+
+        <variable
+            name="sideViewModel"
+            type= "com.stanger.listquest.ui.side_quest.side_quest_item.SideQuestItemViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="com.stanger.listquest.ui.side_quest.SideQuestViewModel" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/side_item_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:animateLayoutChanges="true">
+
+        <CheckBox
+            android:id="@+id/chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{viewModel.isAddButtonItem ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+<!--        android:checked="@={sideViewModel.ischecked}"-->
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/side_edit_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/roboto_bold"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chk"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@{sideViewModel.ischecked ? @color/redTransparent : @color/colorTransparent}"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
+                android:onClick="@{() -> sideViewModel.launchEditDialog()}"
+                android:padding="10dp"
+                android:text="@{sideViewModel.title}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/chk"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="This is title" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

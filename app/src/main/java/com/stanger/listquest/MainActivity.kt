@@ -14,11 +14,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.stanger.listquest.data.models.UserModel
-import com.stanger.listquest.data.utils.DialogUtils.Companion.imm
-import com.stanger.listquest.data.utils.FirestoreRepository
 import com.stanger.listquest.ui.login.LoginFragment
-import com.stanger.listquest.ui.mainquest.MainQuestFragment
-import kotlinx.android.synthetic.main.main_activity.*
+import com.stanger.listquest.ui.main_quest.MainQuestFragment
+import com.stanger.listquest.utils.DialogUtils.Companion.imm
+import com.stanger.listquest.utils.FirestoreRepository
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(){
 
@@ -50,9 +51,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-
-        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        setContentView(R.layout.activity_main)
 
         container.visibility = View.VISIBLE
 

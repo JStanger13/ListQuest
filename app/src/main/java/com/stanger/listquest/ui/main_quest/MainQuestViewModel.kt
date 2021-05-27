@@ -19,16 +19,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.stanger.listquestandroid.R
-import com.stanger.listquestandroid.data.models.MainQuestModel
-import com.stanger.listquestandroid.data.models.UserModel
-import com.stanger.listquestandroid.ui.main_quest.create_main_quest_dialog.CreateMainQuestDialogFragment
-import com.stanger.listquestandroid.ui.main_quest.create_main_quest_dialog.CreateMainQuestDialogViewModel
-import com.stanger.listquestandroid.ui.profile.ProfileFragment
-import com.stanger.listquestandroid.ui.side_quest.SideQuestFragment
-import com.stanger.listquestandroid.ui.side_quest.SideQuestViewModel
-import com.stanger.listquestandroid.utils.*
-import com.stanger.listquestandroid.utils.FirestoreUtil.isLevelUp
+import com.stanger.listquest.R
+import com.stanger.listquest.data.models.MainQuestModel
+import com.stanger.listquest.data.models.UserModel
+import com.stanger.listquest.ui.main_quest.create_main_quest_dialog.CreateMainQuestDialogFragment
+import com.stanger.listquest.ui.profile.ProfileFragment
+import com.stanger.listquest.ui.side_quest.SideQuestFragment
+import com.stanger.listquest.ui.side_quest.SideQuestViewModel
+import com.stanger.listquest.utils.*
+import com.stanger.listquest.utils.FirestoreUtil.isLevelUp
 import kotlin.math.roundToInt
 
 class MainQuestViewModel(
@@ -43,7 +42,7 @@ class MainQuestViewModel(
     FavoriteListener,
     CameraListener {
 
-    private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val firestoreInstance:  FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     private val photoRef: DocumentReference
         get() = firestoreInstance.collection("images").document(userModel.profilePicturePath)
@@ -70,7 +69,7 @@ class MainQuestViewModel(
         profilePicturePath.value = userModel.profilePicturePath
         getImgFromFirestore()
     }
-
+    //Photo Methods
     override fun passPhoto(path: String) {
         super.passPhoto(path)
         profilePicturePath.value = path
@@ -90,6 +89,7 @@ class MainQuestViewModel(
             }
     }
 
+    //Add//Delete Item
     fun updateUserAdd() {
         userModel.levelUpNumerator = userModel.levelUpNumerator + 1
         if (userModel.levelUpNumerator > 0) {
@@ -134,6 +134,7 @@ class MainQuestViewModel(
         }
     }
 
+    //set up
     fun getQuestDate(date: String, time: String): String {
         return date + checkIfTimeIsSet(time)
     }

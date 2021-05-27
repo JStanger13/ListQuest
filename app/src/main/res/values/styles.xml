@@ -1,83 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="AppTheme" parent="AppTheme.Base"/>
+<resources>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowContentTransitions">true</item>
-    </style>
-
-
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-    </style>
-
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">#000</item>
-        <item name="android:weekNumberColor">#000</item>
-
-    </style>
-
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">#000</item>
-    </style>
-
-
-
-
-    <style name="TimePickerTheme" parent="@android:style/Widget.Material.TimePicker">
-        <item name="colorAccent">#000</item>
-        <item name="android:amPmTextColor">#000</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-
-
-    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-    </style>
-
-
-    <style name="BottomSheetDialogThemeNoFloating" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
-    </style>
-
-
-
-
-
-    <!--    <style name="AppDialogTheme" parent="@android:style/Theme.Dialog">-->
-<!--        &lt;!&ndash; Define color properties as desired &ndash;&gt;-->
-<!--        <item name="android:windowAnimationStyle">DialogSlideAnim</item>-->
-
-<!--        <item name="colorPrimary">@color/dark_blue</item>-->
-<!--        <item name="colorPrimaryDark">#000</item>-->
-<!--        <item name="android:textColorHighlight">@color/light_blue</item>-->
-<!--        <item name="colorAccent">@color/dark_blue</item>-->
-<!--        <item name="colorControlNormal">@color/dark_blue</item>-->
-<!--        &lt;!&ndash; Define window properties as desired &ndash;&gt;-->
-<!--        <item name="android:windowNoTitle">false</item>-->
-<!--        <item name="android:windowFullscreen">false</item>-->
-<!--        <item name="android:windowBackground">@color/medium_green</item>-->
-<!--        <item name="android:windowIsFloating">true</item>-->
-<!--        <item name="android:windowCloseOnTouchOutside">true</item>-->
-<!--    </style>-->
-
-    <!-- Define your custom alert theme here extending from base -->
-    <style name="AppAlertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorPrimary">@color/dark_blue</item>
-        <item name="colorAccent">@color/dark_blue</item>
-        <item name="colorPrimaryDark">#000</item>
-        <item name="colorControlNormal">@color/dark_blue</item>
-        <item name="android:textColorHighlight">@color/light_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="DialogSlideAnim" parent="@android:style/Animation.Activity">
@@ -90,7 +18,15 @@
         <item name="android:textColorHighlight">@color/light_blue</item>
     </style>
 
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
 
-
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>

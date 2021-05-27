@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type= "com.stanger.listquest.ui.side_quest.edit_side_quest_dialog.EditSideQuestDialogViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_dialog">
+
+        <EditText
+            android:id="@+id/edit_side_edit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/yes_side_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:text="@={viewModel.title}"
+            android:layout_width="0dp"
+            android:textColorHint="@color/dark_gray"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/new_task"
+            android:padding="15dp"/>
+
+        <Button
+            android:background="@drawable/send"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/yes_side_btn"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:onClick="@{() -> viewModel.editButton()}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

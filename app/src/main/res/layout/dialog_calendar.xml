@@ -1,6 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type= "com.stanger.listquest.ui.calendar.CalenderFragmentViewModel"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:animateLayoutChanges="true"
+        android:elevation="20dp">
+
+        <TextView
+            android:id="@+id/cancel_date_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/off_black"
+            android:fontFamily="@font/roboto_bold"
+            android:onClick="@{() -> viewModel.cancelClicked()}"
+            android:text="@string/fui_cancel"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/send_date_btn"
+            app:layout_constraintEnd_toStartOf="@id/send_date_btn"
+            app:layout_constraintTop_toTopOf="@+id/send_date_btn" />
+
+        <TextView
+            android:layout_margin="20dp"
+            android:id="@+id/send_date_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/done"
+            android:fontFamily="@font/roboto_bold"
+            android:backgroundTint="@color/off_black"
+            android:onClick="@{() -> viewModel.doneClicked()}" />
+
+        <TextView
+            android:textColor="#000"
+            android:id="@+id/main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="@string/date_and_time"
+            android:textSize="20sp"
+            android:fontFamily="@font/roboto_regular"
+            app:layout_constraintTop_toBottomOf="@id/send_date_btn"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#90909090"
+            app:layout_constraintTop_toBottomOf="@id/main_title"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/calendar_view"
+            app:layout_constraintTop_toBottomOf="@id/main_title"
+            tools:text="11/06/1991"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="16sp"
+            android:text="@{viewModel.calendarString}"
+            android:textColor="#000"
+            android:id="@+id/calender_txt_view"
+            android:padding="5dp"
+            android:visibility="@{viewModel.calendarIsOpen ? View.GONE : View.VISIBLE}"
+            android:onClick="@{() -> viewModel.calendarOnClick()}"/>
+
+        <CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calender_txt_view"
+            android:visibility="@{viewModel.calendarIsOpen ? View.VISIBLE : View.GONE}"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#90909090"
+            app:layout_constraintTop_toBottomOf="@id/calendar_view"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <TextView
+            android:id="@+id/time_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:onClick="@{() -> viewModel.timePickerOnClick()}"
+            android:padding="5dp"
+            android:text="@{viewModel.timeString}"
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView13"
+            app:layout_constraintStart_toEndOf="@id/clock_ic"
+            app:layout_constraintTop_toBottomOf="@id/calendar_view"
+            tools:text="3:00" />
+
+        <ImageView
+            android:id="@+id/clock_ic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="@{() -> viewModel.timeCancelClicked()}"
+            android:padding="5dp"
+            android:src="@drawable/clock"
+            app:layout_constraintBottom_toBottomOf="@id/time_txt"
+            app:layout_constraintStart_toStartOf="@+id/main_title"
+            app:layout_constraintTop_toTopOf="@id/time_txt" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="@{() -> viewModel.timeCancelClicked()}"
+            android:padding="5dp"
+            android:src="@drawable/cancel"
+            android:visibility="@{viewModel.showCancelBtn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/time_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/time_txt" />
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_gravity="center"
+            android:layout_width="382dp"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time_txt"
+            tools:visibility="gone"
+            android:visibility="@{viewModel.calendarIsOpen ? View.GONE : View.VISIBLE}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

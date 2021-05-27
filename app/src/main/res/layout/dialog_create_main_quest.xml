@@ -1,6 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type= "com.stanger.listquest.ui.main_quest.create_main_quest_dialog.CreateMainQuestDialogViewModel"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_dialog">
+
+        <TextView
+            android:id="@+id/create_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/complete_your_task_to_defeat"
+            android:textColor="@color/off_black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/create_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/boss_img" />
+
+        <TextView
+            android:id="@+id/create_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@{viewModel.newBossName}"
+            android:textColor="@color/off_black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/due_date_txt"
+            app:layout_constraintEnd_toEndOf="@id/create_txt"
+            app:layout_constraintStart_toStartOf="@id/create_txt"
+            tools:text="cthulu" />
+
+        <ImageView
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/divider"
+            app:layout_constraintBottom_toTopOf="@id/edit_text_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/boss_img"
+            app:layout_constraintTop_toTopOf="@+id/create_name" />
+
+        <ImageView
+            android:id="@+id/calendar_btn"
+            android:background="@drawable/calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/set_main_quest_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="30dp"
+            android:onClick="@{(v) -> viewModel.calendarClick(v)}"/>
+
+        <TextView
+            android:id="@+id/due_date_txt"
+            android:text="@{viewModel.dateString}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="11/06/2019 at 3:30 pm"
+            android:textColor="@color/off_black"
+            android:fontFamily="@font/roboto_light"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@id/boss_img"
+            app:layout_constraintBottom_toBottomOf="@id/divider"/>
+        <TextView
+            android:id="@+id/due_date_no_txt"
+            android:text="@string/no_date_selected"
+            android:visibility="@{viewModel.dateCancel ? View.GONE : View.VISIBLE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="11/06/2019 at 3:30 pm"
+            android:textColor="@color/off_black"
+            android:fontFamily="@font/roboto_light"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@id/boss_img"
+            app:layout_constraintBottom_toBottomOf="@id/divider"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="@{() -> viewModel.cancelDateAndTime()}"
+            android:padding="5dp"
+            android:tint="@color/darker_gray"
+            android:src="@drawable/cancel"
+            android:visibility="@{viewModel.dateCancel ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/due_date_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/due_date_txt"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/boss_img"
+            android:layout_margin="15dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@{viewModel.bossImg}"
+            tools:src="@drawable/cthulu"/>
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/boss_img"
+            app:layout_constraintBottom_toTopOf="@id/edit_text_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/divider"/>
+
+        <EditText
+            android:id="@+id/edit_text_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="@={viewModel.newName}"
+            android:background="@android:color/transparent"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:hint="@string/new_project_title"
+            android:textColorHint="@color/dark_gray"
+            app:layout_constraintEnd_toStartOf="@id/calendar_btn"
+            app:layout_constraintStart_toStartOf="@id/boss_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/divider"/>
+
+        <ImageView
+            android:id="@+id/set_main_quest_btn"
+            android:background="@drawable/send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:onClick="@{() -> viewModel.createButton()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,6 +1,398 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:windowSoftInputMode="adjustResize">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.stanger.listquest.ui.side_quest.SideQuestViewModel" />
+
+        <variable
+            name="mainQuest"
+            type="com.stanger.listquest.data.models.MainQuestModel" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/side_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/landscape_lines"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/boss_landscape_lines"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <ImageView
+                android:id="@+id/boss_img"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:padding="15dp"
+                android:src="@{viewModel.bossImg}"
+                android:transitionName="imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/kraken" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/boss_landscape"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:onClick="@{() -> viewModel.dismissDialog()}"
+                android:src="@drawable/down_chev"
+                android:tint="@color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boss_img">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@{viewModel.bossName}"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@+id/health_edit_card"
+                        app:layout_constraintStart_toStartOf="@+id/health_edit_card"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Cthulu" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/health_edit_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/dark_gray"
+                        android:fontFamily="@font/roboto_bold"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/title_edit_card"
+                        app:layout_constraintStart_toStartOf="@+id/title_edit_card"
+                        app:layout_constraintTop_toBottomOf="@id/textView">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/prog_bar_const"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="@+id/title_edit_card"
+                            app:layout_constraintStart_toStartOf="@+id/title_edit_card"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/numOfNum"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/arcade_classic"
+                                android:gravity="center"
+                                android:text="@{viewModel.numOfNum}"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/prog_bar_const"
+                                app:layout_constraintEnd_toEndOf="@+id/prog_bar_const"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="num/num" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                android:id="@+id/prog_bar2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:progress="@{viewModel.bossHealthPercentFloat}"
+                                android:progressBackgroundTint="@color/dark_gray"
+                                android:progressTint="@color/light_green"
+                                android:scaleY="8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:progress="50" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#000"
+                        android:src="@drawable/scroll_ic"
+                        app:layout_constraintBottom_toBottomOf="@+id/notes_edit_card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/notes_edit_card" />
+
+                    <ImageView
+                        android:id="@+id/title_ic"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#000"
+                        android:src="@drawable/title_ic"
+                        android:tint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/title_edit_card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/title_edit_card" />
+
+                    <ImageView
+                        android:id="@+id/heart"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/heart_ic"
+                        android:tint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/health_edit_card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/health_edit_card" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/title_edit_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@color/dark_gray"
+                        android:fontFamily="@font/roboto_bold"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/health_edit_card">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:backgroundTint="@color/darker_gray">
+
+                            <EditText
+                                android:id="@+id/textView3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@color/darker_gray"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:fontFamily="@font/roboto_regular"
+                                android:onClick="@{() -> viewModel.editTitleOnClick()}"
+                                android:padding="15dp"
+                                android:text="@={viewModel.mainQuestTitle}"
+                                android:textColor="@color/off_black"
+                                android:textSize="24sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                tools:text="@string/lorem_ipsum" />
+
+                            <!--                            <CheckBox-->
+                            <!--                                android:id="@+id/favorite"-->
+                            <!--                                android:layout_width="30dp"-->
+                            <!--                                android:layout_height="30dp"-->
+                            <!--                                android:layout_marginEnd="10dp"-->
+                            <!--                                android:background="@drawable/favorite_selector"-->
+                            <!--                                android:backgroundTint="@color/yellow"-->
+                            <!--                                android:button="@null"-->
+                            <!--                                android:checked="@={viewModel.favorite}"-->
+                            <!--                                app:layout_constraintBottom_toBottomOf="@+id/textView3"-->
+                            <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                                app:layout_constraintTop_toTopOf="@+id/textView3" />-->
+                        <!--                        android:onClick="@{() -> viewModel.onFavoriteClicked()}"-->
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/notes_edit_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@color/dark_gray"
+                        android:fontFamily="@font/roboto_bold"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/title_edit_card">
+
+                        <EditText
+                            android:id="@+id/notes_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@color/darker_gray"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="@string/add_your_notes_here"
+                            android:onClick="@{() -> viewModel.editOnClick()}"
+                            android:padding="15dp"
+                            android:text="@={viewModel.notes}"
+                            android:textColor="@color/off_black"
+                            android:textSize="14sp"
+                            tools:text="@string/lorem_ipsum" />
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/calendar_img"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:background="#000"
+                        android:src="@drawable/calendar"
+                        android:tint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_edit_card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/date_edit_card" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/date_edit_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@color/dark_gray"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toBottomOf="@+id/notes_edit_card">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/calendar_title"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/darker_gray"
+                                android:fontFamily="@font/roboto_light"
+                                android:onClick="@{() -> viewModel.editDate()}"
+                                android:padding="15dp"
+                                android:text="@{viewModel.date}"
+                                android:textColor="@color/off_black"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="date" />
+
+                            <ImageView
+                                android:id="@+id/imageView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="@{() -> viewModel.deleteDateAndTime()}"
+                                android:padding="10dp"
+                                android:src="@drawable/cancel"
+                                android:tint="@color/off_black"
+                                android:visibility="@{viewModel.showDateCancel ? View.VISIBLE : View.GONE}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/side_quest_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:background="#000"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date_edit_card"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:layout_editor_absoluteX="0dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/quill"
+            app:borderWidth="0dp"
+            app:fabSize="normal"
+            app:onSingleClick="@{clickListener}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
